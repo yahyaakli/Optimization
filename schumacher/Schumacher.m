@@ -38,5 +38,5 @@ beq=[];
 
 obj = @(X)(X(end,end));
 [sol,fval,exitflag,output] = fmincon(obj,X,A,b,Aeq,beq,lb,ub,@cont);
-plot(sol(2,:),sol(3,:),'--k');
+plot(sol(2,:),sol(3,:),'--b');
 fprintf("%i", sol(end,end));

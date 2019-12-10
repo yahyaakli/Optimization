@@ -20,7 +20,20 @@ F3 = 0.5.*sin(X(1,1:N-1)).*(X(5,1:N-1)+X(4,1:N-1));
 F4 = a.*X(4,1:N-1)+b.*X(6,1:N-1);
 F5 = a.*X(5,1:N-1)+b.*X(7,1:N-1);
 
-ceq = X(:,2:N)-X(:,1:N-1)-(T/N).*[F1;F2;F3;F4;F5;zeros(1,100);zeros(1,100)];
+ceq1 = X(:,2:N)-X(:,1:N-1)-(T/N).*[F1;F2;F3;F4;F5;zeros(1,100);zeros(1,100)];
+ceq1=ceq1(:);
+
+A=X;
+A(1:7,1)=[0;rp(0);0;0;0;0;0];
+ceq2 = X-A;
+ceq2 = ceq2(:);
+
+
+B=X;B(3,end)=0;
+ceq3 =  X-B;
+ceq3 = ceq3(:);
+
+ceq=[ceq1;ceq2;ceq3];
 
 
 %% c : contraintes inégalités
