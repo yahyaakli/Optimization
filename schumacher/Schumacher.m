@@ -10,7 +10,6 @@ xmoins=cos(theta).*(r-0.25);
 ymoins=sin(theta).*(r-0.25);
 plot(xplus,yplus,'r',xmoins,ymoins,'r',x,y,'b');
 hold on
-
 %% construction de la matrice X
 N=100;
 T=60;
@@ -36,7 +35,14 @@ b=[];
 Aeq=[];
 beq=[];
 
+options = optimoptions('fminunc','display','iter','Algorithm','quasi-newton','HessUpdate','bfgs');
+options.MaxFunctionEvaluations=30000000000;
+options.MaxIterations=100;
+
 obj = @(X)(X(end,end));
-[sol,fval,exitflag,output] = fmincon(obj,X,A,b,Aeq,beq,lb,ub,@cont);
-plot(sol(2,:),sol(3,:),'--b');
+
+[sol,fval,exitflag,output] = fmincon(obj,X,A,b,Aeq,beq,lb,ub,@cont,options);
+sol=[[sol(1:5,1);0;0],sol];
+% sol=[0 sol(1,:);rp(0) sol(2,:);0 sol(3,:); 0 sol(4,:); 0 sol(5,:); 0 sol(6,:); 0 sol(7,:)];
+plot(sol(2,:),sol(3,:),'-g');
 fprintf("%i", sol(end,end));
