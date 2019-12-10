@@ -36,9 +36,7 @@ b=[];
 Aeq=[];
 beq=[];
 
-options = optimoptions('fminunc','display','iter','Algorithm','quasi-newton','HessUpdate','bfgs');
 obj = @(X)(X(end,end));
-
 [sol,fval,exitflag,output] = fmincon(obj,X,A,b,Aeq,beq,lb,ub,@cont);
 plot(sol(2,:),sol(3,:),'--k');
 fprintf("%i", sol(end,end));
